@@ -9,25 +9,12 @@ def get_calc():
     
 def test_0(get_calc):
     calc = get_calc
-    calc.factorial(0)
-    assert calc.find_zeros() == 1
-    assert calc.find_zeros_by_math() == 1
+    assert calc.find_last_zeros(0) == 0
 
-def test_1(get_calc):    
+def test_100(get_calc):
     calc = get_calc
-    calc.factorial(1)
-    assert calc.find_zeros() == 0
-    assert calc.find_zeros_by_math() == 0
+    assert calc.find_last_zeros(100) == 24
 
-def test_7(get_calc):    
+def test_1000(get_calc):
     calc = get_calc
-    calc.factorial(7)
-    assert calc.find_zeros() == 2
-    assert calc.find_zeros_by_math() == 2
-
-def test_20(get_calc):    
-    calc = get_calc
-    calc.factorial(20)
-    assert calc.find_zeros() == 7
-    assert calc.find_zeros_by_math() == 7
-
+    assert calc.find_last_zeros(1000) == 249
