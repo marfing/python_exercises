@@ -1,4 +1,4 @@
-from linked_list import Linked_list,Node
+from linked_list import Linked_list
 import pytest 
 
 class Params:
