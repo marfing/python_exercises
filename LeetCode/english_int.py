@@ -33,35 +33,40 @@ class converter:
         self.unit = {
             0 : '',
             3 : 'thousand',
-            6 : 'milion',
-            9 : 'bilion',
-            12: 'trilion'
+            6 : 'million',
+            9 : 'billion',
+            12: 'trillion'
         }
 
     def toEnglish(self, n):
-        #n = str(n)
-        print(f'english for number: {n}')
         size = len(str(n))
         i = size-1
         output = ''
         temp = 0
-        while i >= 0:
+        value = False
+        while i >= 0:            
             q = n//10**i
-            if (i-2)%3 == 0:
-                output += f' {self.map[q]} hundred'
-            if (i-1)%3 == 0:
+            #verifico l'esistenza di valori in questa tripletta
+            if q > 0:
+                value = True
+            if (i-2)%3 == 0 and q != 0:
+                output += f'{self.map[q]} hundred '
+            elif (i-1)%3 == 0:
                 temp = q*10
-            if i%3 == 0:
+            elif i%3 == 0:
                 if temp != 0:
-                    if temp+q < 20:
-                        output += f' {self.map[temp+q]}'  
+                    if temp+q <= 20:
+                        output += f'{self.map[temp+q]} '  
+                    elif q != 0:
+                        output += f'{self.map[temp]} {self.map[q]} '
                     else:
-                        output += f' {self.map[temp]} {self.map[q]}'
-                output += f' {self.unit[i]}'
+                        output += f'{self.map[temp]} '
+                elif (q == 0 and i == 0 and size == 1) or q!=0:
+                    output += f'{self.map[q]} '
+
+                if i != 0 and value:
+                    output += f'{self.unit[i]} '
+                    value = False
             n = n%10**i
             i -= 1
-        print(f'{output}')
-
-if __name__ == '__main__':
-    conv = converter()
-    conv.toEnglish(631234)
+        return output
